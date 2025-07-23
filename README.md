@@ -1,2 +1,2 @@
 # PrintReady
-Trying out some backend with an innovative idea.
+This project was built to solve a real-world problem I encountered during my B.Tech studies: the inefficient queues at the campus store for printing. It's a web application that digitizes the entire printing process.Students can upload their documents and track their job status, while staff manage the incoming requests from a central dashboard. The app handles different user roles (student vs. staff), manages a real-time job queue, and provides status updates from submission to pickup.
