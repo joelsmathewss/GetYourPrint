@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - PrintReady</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm">
+        <nav class="container mx-auto px-4 lg:px-8 flex justify-between items-center py-4">
+            <div class="text-2xl font-bold text-blue-600">PrintReady - Staff Portal</div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600">{{ current_user.name }}</span>
+                <a href="{{ url_for('logout') }}" class="text-sm font-medium text-gray-600 hover:text-blue-600">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 lg:p-8">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-4">
+                {% for category, message in messages %}
+                    <div class="p-4 rounded-md {{ 'bg-green-100 text-green-800' if category == 'success' else 'bg-red-100 text-red-800' }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Active Queue -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+            <h2 class="text-xl font-bold mb-4">Active Queue</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Details</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for job in active_jobs %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:underline">
+                                <a href="{{ url_for('uploaded_file', filename=job.filename) }}" target="_blank">{{ job.filename }}</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ job.author.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ job.copies }}x, {{ job.print_type }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ job.status }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <form action="{{ url_for('update_status', job_id=job.id) }}" method="POST" class="flex items-center space-x-2">
+                                    <select name="status" class="block w-full border-gray-300 rounded-md shadow-sm p-1 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="Printing" {% if job.status == 'Printing' %}selected{% endif %}>Printing</option>
+                                        <option value="Ready for Pickup" {% if job.status == 'Ready for Pickup' %}selected{% endif %}>Ready for Pickup</option>
+                                        <option value="Completed" {% if job.status == 'Completed' %}selected{% endif %}>Completed</option>
+                                    </select>
+                                    <button type="submit" class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-md hover:bg-blue-700">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center py-10 text-gray-500">The active queue is empty.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Completed History -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-xl font-bold mb-4">Completed History</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Completed On</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Handled By</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for job in completed_jobs %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ job.filename }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ job.author.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ job.completed_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {% if job.completed_by_id %}{{ User.query.get(job.completed_by_id).name }}{% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-10 text-gray-500">No jobs have been completed yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
