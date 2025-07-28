@@ -8,7 +8,7 @@ The application is built with distinct user interfaces and functionalities tailo
 Student Module
 Description: This module provides the interface for students to interact with the printing service. It focuses on submission, tracking, and personal history.
 
-Functionality: Students can securely log in, upload documents (e.g., PDF, DOCX, TXT), specify print parameters (number of copies, print type like color/B&W), and view the current status of all their submitted jobs, from "Queued" to "Completed."
+Functionality: Students can securely log in, upload documents, specify print parameters (number of copies, print type like color/B&W), and view the current status of all their submitted jobs, from "Queued" to "Completed."
 
 Staff Module
 Description: This module serves as the administrative dashboard for printing store personnel. It provides comprehensive control over the print queue and job management.
