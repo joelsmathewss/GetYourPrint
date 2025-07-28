@@ -51,6 +51,6 @@ Students can continuously monitor the status of their submitted jobs from their 
 - Database initialization via Flask CLI command.
 
 ## Technologies Used
-**Backend:** Python, Flask, Flask-SQLAlchemy (for ORM), Flask-Login (for user session management), Werkzeug (for security utilities and file handling).
-**Database:** SQLite (for development and local storage).
-**Frontend:** HTML, CSS, JavaScript (for user interfaces and interactions).
+- **Backend:** Python, Flask, Flask-SQLAlchemy (for ORM), Flask-Login (for user session management), Werkzeug (for security utilities and file handling).
+- **Database:** SQLite (for development and local storage).
+- **Frontend:** HTML, CSS, JavaScript (for user interfaces and interactions).
