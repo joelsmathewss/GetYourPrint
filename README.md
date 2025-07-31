@@ -6,8 +6,6 @@ By digitalizing the printing process, PrintReady reduces wait times, enhances tr
 
 ### Key Components
 
-The application integrates two distinct predictive models, each designed to analyze different types of data:
-
 1. **Student Module**:
    - **Description**: This module provides the interface for students to interact with the printing service. It focuses on submission, tracking, and personal history.
    - **Functionality**: Students can securely log in, upload documents, specify print parameters (number of copies, print type like color/B&W), and view the current status of all their submitted jobs, from "Queued" to "Completed."
