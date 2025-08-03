@@ -1,6 +1,6 @@
 # PrintReady
 ## Overview
-PrintReady is a hobby full-stack web application designed to significantly improve the efficiency and user experience of campus printing services. Developed to address the common problem of long and disorganized printing queues at a B.Tech campus store, PrintReady provides a seamless digital platform for students to manage their print jobs and for staff to oversee the entire printing workflow.
+Developed to address the common problem of long and disorganized printing queues at a B.Tech campus store, PrintReady provides a seamless digital platform for students to manage their print jobs and for staff to oversee the entire printing workflow.
 
 By digitalizing the printing process, PrintReady reduces wait times, enhances transparency, and optimizes resource management within the campus printing environment.
 
