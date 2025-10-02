@@ -2,91 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - PrintReady</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='static/css/style.css') }}">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
+    <header>
+        <h2>Create an Account</h2>
+    </header>
 
-    <div class="flex flex-col items-center justify-center min-h-screen p-4">
-        <div class="w-full max-w-md">
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-blue-600">Create Account</h1>
-                <p class="text-gray-500 mt-2">Join PrintReady to start printing.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-md">
-                <form id="signup-form" action="{{ url_for('signup') }}" method="POST" class="space-y-4">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input id="name" name="name" type="text" required placeholder="Joel S Mathews" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
+    <form method="POST" onsubmit="return validateSignup()">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <select name="role">
+            <option value="student">Student</option>
+            <option value="staff">Staff</option>
+        </select>
+        
+        <p>Already have an account? <a href="{{ url_for('routes.login') }}">Login here</a></p>
+        
+        <button type="submit">Sign Up</button>
+    </form>
 
-                    <div>
-                        <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-                        <select id="role" name="role" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            <option value="student">Student</option>
-                            <option value="staff">Staff</option>
-                        </select>
-                    </div>
-
-                    <div id="student-fields">
-                        <div class="space-y-4">
-                            <div>
-                                <label for="mut-id" class="block text-sm font-medium text-gray-700">MUT ID</label>
-                                <input id="mut-id" name="mut-id" type="text" placeholder="e.g., M22AD001" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                            </div>
-                            <div>
-                                <label for="batch" class="block text-sm font-medium text-gray-700">Batch</label>
-                                <input id="batch" name="batch" type="text" placeholder="e.g., 2022-2026" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="signup-email" class="block text-sm font-medium text-gray-700">Email ID</label>
-                        <input id="signup-email" name="signup-email" type="email" required placeholder="joel.sm@mits.ac.in" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                    <div>
-                        <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input id="signup-password" name="signup-password" type="password" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                   
-                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">Sign Up</button>
-                </form>
-            </div>
-            <p class="text-center text-sm text-gray-500 mt-6">
-                Already have an account? <a href="{{ url_for('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Sign in</a>
-            </p>
-        </div>
-    </div>
-    
-    <script>
-        // Simple script to toggle student-specific fields
-        document.addEventListener('DOMContentLoaded', function() {
-            const roleSelect = document.getElementById('role');
-            const studentFields = document.getElementById('student-fields');
-            const mutIdInput = document.getElementById('mut-id');
-            const batchInput = document.getElementById('batch');
-
-            function toggleFields() {
-                if (roleSelect.value === 'student') {
-                    studentFields.style.display = 'block';
-                    mutIdInput.required = true;
-                    batchInput.required = true;
-                } else {
-                    studentFields.style.display = 'none';
-                    mutIdInput.required = false;
-                    batchInput.required = false;
-                }
-            }
-
-            // Initial check
-            toggleFields();
-
-            // Add event listener
-            roleSelect.addEventListener('change', toggleFields);
-        });
-    </script>
 </body>
 </html>

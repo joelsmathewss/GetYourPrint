@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h2>Welcome, {{ current_user.email }}</h2>
+        <nav>
+            <a href="{{ url_for('routes.logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h3>Upload a Print Job</h3>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="application/pdf" required>
+            <input type="number" name="copies" placeholder="Number of copies" min="1" required>
+            <select name="color">
+                <option value="bw">Black & White</option>
+                <option value="color">Color</option>
+            </select>
+            <button type="submit">Upload</button>
+        </form>
+
+        <h3>Your Jobs</h3>
+        <table>
+            <tr>
+                <th>File</th>
+                <th>Pages</th>
+                <th>Copies</th>
+                <th>Color</th>
+                <th>Cost</th>
+                <th>Status</th>
+            </tr>
+            {% for job in jobs %}
+            <tr>
+                <td>{{ job.original_filename }}</td>
+                <td>{{ job.pages }}</td>
+                <td>{{ job.copies }}</td>
+                <td>{{ "Color" if job.color else "B/W" }}</td>
+                <td>₹{{ job.cost }}</td>
+                <td>{{ job.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+</html>

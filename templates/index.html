@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GetYourPrint</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to GetYourPrint</h1>
+        <nav>
+            <a href="{{ url_for('routes.login') }}">Login</a>
+            <a href="{{ url_for('routes.signup') }}">Sign Up</a>
+        </nav>
+    </header>
+
+    <main>
+        <p>Upload your documents, manage print jobs, and track progress online.</p>
+    </main>
+</body>
+</html>
+
