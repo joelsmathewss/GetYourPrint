@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-        <h2>Welcome, {{ current_user.email }}</h2>
+        <h2>Welcome, {{ current_user.name }}</h2>
         <nav>
             <a href="{{ url_for('routes.logout') }}">Logout</a>
         </nav>

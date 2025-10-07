@@ -1,13 +1,14 @@
 import datetime
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
 from app import db
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(200))
     is_staff = db.Column(db.Boolean, default=False)
-
+    print_jobs = db.relationship('PrintJob', backref='uploader', lazy=True)
 class PrintJob(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(200))

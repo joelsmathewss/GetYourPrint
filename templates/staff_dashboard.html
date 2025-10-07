@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-        <h2>Staff Dashboard - {{ current_user.email }}</h2>
+        <h2>Staff Dashboard - {{ current_user.name }}</h2>
         <nav>
             <a href="{{ url_for('routes.logout') }}">Logout</a>
         </nav>
@@ -25,11 +25,12 @@
                 <th>Cost</th>
                 <th>Status</th>
                 <th>Actions</th>
+                <th></th> 
             </tr>
             {% for job in jobs %}
             <tr>
                 <td><a href="{{ url_for('routes.download', jid=job.id) }}">{{ job.original_filename }}</a></td>
-                <td>{{ job.uploader_id }}</td>
+                <td>{{ job.uploader.name }}</td>
                 <td>{{ job.pages }}</td>
                 <td>{{ job.copies }}</td>
                 <td>{{ "Color" if job.color else "B/W" }}</td>
@@ -38,6 +39,9 @@
                 <td>
                     <a href="{{ url_for('routes.update', jid=job.id, status='Printing') }}">Printing</a> | 
                     <a href="{{ url_for('routes.update', jid=job.id, status='Completed') }}">Completed</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('routes.delete', jid=job.id) }}" class="button-delete">Collected</a>
                 </td>
             </tr>
             {% endfor %}
